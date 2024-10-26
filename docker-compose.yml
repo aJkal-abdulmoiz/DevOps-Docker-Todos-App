@@ -1,0 +1,26 @@
+version: '3'
+services:
+  frontend:
+    build: ./todos-app/frontend
+    ports:
+      - "3000:3000"
+
+  backend:
+    build: ./todos-app/backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    volumes:
+      - backend-data:/app/data  
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db  
+
+volumes:
+  backend-data:
+  mongo-data:
